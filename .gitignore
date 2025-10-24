@@ -1,0 +1,24 @@
+# Python bytecode and environment files
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environment folders
+venv
+.venv
+env
+
+# Operating System specific files
+.DS_Store
+Thumbs.db
+
+# Flask/ML specific files
+instance/
+.flaskenv
+
+# The model file (If you have a large model or want to load it separately)
+# If your model.pkl is small and necessary for deployment, you can comment this out.
+model.pkl 
+
+# Development server specific logs/data
+*~

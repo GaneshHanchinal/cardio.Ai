@@ -1,0 +1,64 @@
+/* Custom Styles for AI Heart Disease Predictor */
+
+/* Global body styling */
+body {
+    background-color: #f4f7f6; /* Light, calming background */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
+    /* Fix for -webkit-text-size-adjust warning for better mobile compatibility */
+    -webkit-text-size-adjust: 100%; 
+    text-size-adjust: 100%; 
+}
+
+/* Header customization */
+.display-4 {
+    font-weight: 700;
+}
+
+/* Card styling with shadow for depth */
+.card {
+    border: none; /* Remove default card border */
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px); /* Slight lift on hover */
+}
+
+/* Custom styling for the prediction result box */
+.result-box {
+    margin-top: 20px;
+    padding: 30px 20px;
+    border-radius: 12px;
+    background: linear-gradient(145deg, #ffffff, #e6e6e6); /* Soft gradient background */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* More prominent shadow */
+    border-left: 5px solid #007bff; /* Accent color on the left */
+}
+
+/* Styling for the main percentage text */
+#prediction-percentage {
+    color: #dc3545; /* Defaulting to a strong color, JS will change text color */
+    font-size: 3.5rem;
+    margin: 10px 0;
+}
+
+/* Container for the chart to manage size */
+.graph-container {
+    height: 350px; /* Specific height for better chart visualization */
+    padding: 10px;
+}
+
+/* Styling for form elements (optional - using Bootstrap defaults is usually sufficient) */
+.form-label {
+    font-weight: 500;
+    color: #343a40;
+}
+
+.form-control, .form-select {
+    border-radius: 8px;
+}
+
+/* Status message styling */
+#status-message {
+    font-style: italic;
+}

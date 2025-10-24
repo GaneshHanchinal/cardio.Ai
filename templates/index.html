@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Heart Disease Predictor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+</head>
+<body>
+
+<div class="container my-5">
+    <header class="text-center mb-5">
+        <h1 class="display-4 text-primary">❤️ AI Heart Disease Predictor</h1>
+        <p class="lead">Input your health metrics to receive a predicted risk percentage.</p>
+    </header>
+
+    <div class="row">
+        <div class="col-lg-6 col-md-12 mb-4">
+            <div class="card p-4 shadow-lg h-100">
+                <h4 class="card-title text-center mb-4">Patient Data Input (13 Features)</h4>
+                <form id="prediction-form">
+                    <div class="mb-3">
+                        <label for="age" class="form-label">1. Age (years):</label>
+                        <input type="number" id="age" name="age" class="form-control" min="10" max="100" required value="50">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="sex" class="form-label">2. Sex:</label>
+                        <select id="sex" name="sex" class="form-select" required>
+                            <option value="1">Male (1)</option>
+                            <option value="0">Female (0)</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="cp" class="form-label">3. Chest Pain Type (cp):</label>
+                        <select id="cp" name="cp" class="form-select" required>
+                            <option value="0">Typical Angina (0)</option>
+                            <option value="1">Atypical Angina (1)</option>
+                            <option value="2">Non-anginal Pain (2)</option>
+                            <option value="3">Asymptomatic (3)</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="trestbps" class="form-label">4. Resting Blood Pressure (mm Hg):</label>
+                        <input type="number" id="trestbps" name="trestbps" class="form-control" min="90" max="200" required value="130">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="chol" class="form-label">5. Serum Cholestoral (mg/dl):</label>
+                        <input type="number" id="chol" name="chol" class="form-control" min="100" max="600" required value="240">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="fbs" class="form-label">6. Fasting Blood Sugar > 120 mg/dl:</label>
+                        <select id="fbs" name="fbs" class="form-select" required>
+                            <option value="1">Yes (1)</option>
+                            <option value="0">No (0)</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="restecg" class="form-label">7. Resting ECG Results (restecg):</label>
+                        <select id="restecg" name="restecg" class="form-select" required>
+                            <option value="0">Normal (0)</option>
+                            <option value="1">ST-T wave abnormality (1)</option>
+                            <option value="2">LV Hypertrophy (2)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="thalach" class="form-label">8. Max Heart Rate Achieved (thalach):</label>
+                        <input type="number" id="thalach" name="thalach" class="form-control" min="70" max="220" required value="150">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="exang" class="form-label">9. Exercise Induced Angina:</label>
+                        <select id="exang" name="exang" class="form-select" required>
+                            <option value="1">Yes (1)</option>
+                            <option value="0">No (0)</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="oldpeak" class="form-label">10. ST Depression (oldpeak):</label>
+                        <input type="number" step="0.1" id="oldpeak" name="oldpeak" class="form-control" min="0.0" max="6.2" required value="1.0">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="slope" class="form-label">11. ST Segment Slope (slope):</label>
+                        <select id="slope" name="slope" class="form-select" required>
+                            <option value="0">Upsloping (0)</option>
+                            <option value="1">Flat (1)</option>
+                            <option value="2">Downsloping (2)</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="ca" class="form-label">12. Number of major vessels (ca):</label>
+                        <select id="ca" name="ca" class="form-select" required>
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="thal" class="form-label">13. Thalassemia (thal):</label>
+                        <select id="thal" name="thal" class="form-select" required>
+                            <option value="3">Normal (3)</option>
+                            <option value="6">Fixed Defect (6)</option>
+                            <option value="7">Reversible Defect (7)</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary w-100 mt-4">Get Prediction</button>
+                    <div id="status-message" class="mt-2 text-center"></div>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-md-12">
+            <div class="card p-4 shadow-lg h-100">
+                <h4 class="card-title text-center mb-4">Prediction Results</h4>
+
+                <div class="result-box bg-light text-center">
+                    <h5>Risk of Heart Disease:</h5>
+                    <p class="display-3 fw-bold" id="prediction-percentage">--</p>
+                    <p class="lead" id="risk-level">Please enter data and click 'Get Prediction'.</p>
+                </div>
+
+                <div class="mt-4 graph-container">
+                    <h5 class="text-center">Risk Visualization</h5>
+                    <canvas id="predictionChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+<script src="{{ url_for('static', filename='main.js') }}"></script>
+</body>
+</html>
